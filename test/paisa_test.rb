@@ -9,6 +9,7 @@ class PaisaTest < Minitest::Test
     assert_equal '3.34', Paisa.format(334)
     assert_equal '9,393.34', Paisa.format(939_334)
     assert_equal '92,83,83,393.34', Paisa.format(92_838_339_334)
+    assert_equal '92,83,83,393.34', Paisa.format(92_838_339_334)
     assert_equal '2,83,83,393.34', Paisa.format(2_838_339_334)
     assert_equal '83,83,393.34', Paisa.format(838_339_334)
     assert_equal '3,83,393.34', Paisa.format(38_339_334)

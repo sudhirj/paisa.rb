@@ -2,12 +2,12 @@ require 'paisa/version'
 
 module Paisa
   def self.format(paise)
-    base_string = paise.to_s
-    formatted_string = paise.to_s.rjust(3, '0').insert(-3, '.')
-    formatted_string = formatted_string.insert(-7, ',') if base_string.size > 5
-    formatted_string = formatted_string.insert(-10, ',') if base_string.size > 7
-    formatted_string = formatted_string.insert(-13, ',') if base_string.size > 9
-    formatted_string
+    little_endian = paise.to_s.reverse.chars
+    paise = little_endian.shift(2).reverse
+    hundreds = little_endian.shift(3).reverse
+    others = little_endian.each_slice(2).map(&:reverse).map(&:join)
+    rupees = [others.reverse, hundreds.join].flatten.compact.join(',').rjust(1, '0')
+    [rupees, paise.join.rjust(2, '0')].join('.')
   end
 
   def self.format_with_sym(paise)
