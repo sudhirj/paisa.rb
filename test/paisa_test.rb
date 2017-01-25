@@ -18,6 +18,8 @@ class PaisaTest < Minitest::Test
     assert_equal '0.03', Paisa.format(3)
     assert_equal '0.50', Paisa.format(50)
     assert_equal '0.00', Paisa.format(0)
+    assert_equal '393.3', Paisa.format(39_334, precision: 1)
+    assert_equal '393', Paisa.format(39_334, precision: 0)
   end
 
   def test_format_with_sym
@@ -30,6 +32,8 @@ class PaisaTest < Minitest::Test
     assert_equal '₹3,83,393.34', Paisa.format_with_sym(38_339_334)
     assert_equal '₹83,393.34', Paisa.format_with_sym(8_339_334)
     assert_equal '₹393.34', Paisa.format_with_sym(39_334)
+    assert_equal '₹393.3', Paisa.format_with_sym(39_334, precision: 1)
+    assert_equal '₹393', Paisa.format_with_sym(39_334, precision: 0)
     assert_equal '₹0.03', Paisa.format_with_sym(3)
     assert_equal '₹0.50', Paisa.format_with_sym(50)
     assert_equal '₹0.00', Paisa.format_with_sym(0)
