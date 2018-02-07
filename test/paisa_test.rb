@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PaisaTest < Minitest::Test
-  def test_that_it_has_a_version_number
+  def test_version_number
     refute_nil ::Paisa::VERSION
   end
 
@@ -37,5 +37,22 @@ class PaisaTest < Minitest::Test
     assert_equal '₹0.03', Paisa.format_with_sym(3)
     assert_equal '₹0.50', Paisa.format_with_sym(50)
     assert_equal '₹0.00', Paisa.format_with_sym(0)
+  end
+
+  def test_words
+    assert_equal 'forty two paise', Paisa.words(42)
+    assert_equal 'two paise', Paisa.words(2)
+    assert_equal 'ten paise', Paisa.words(10)
+    assert_equal 'fifteen paise', Paisa.words(15)
+    assert_equal 'ninety two paise', Paisa.words(92)
+    assert_equal 'two rupees, ninety two paise', Paisa.words(292)
+    assert_equal 'twenty eight rupees, thirty seven paise', Paisa.words(2837)
+    assert_equal 'nine hundred and twenty three rupees, forty eight paise', Paisa.words(92348)
+    assert_equal 'eight thousand, four hundred and sixty two rupees, twenty seven paise', Paisa.words(846227)
+    assert_equal 'fifty seven thousand, two hundred and two rupees, seventy four paise', Paisa.words(5720274)
+    assert_equal 'seven lakh, seventy five thousand, one hundred and ninety three rupees, eighty five paise', Paisa.words(77519385)
+    assert_equal 'sixty seven lakh, seventy five thousand, one hundred and ninety three rupees, eighty five paise', Paisa.words(677519385)
+    assert_equal 'eight crore, sixty seven lakh, seventy five thousand, one hundred and ninety three rupees, eighty five paise', Paisa.words(8677519385)
+    assert_equal 'eighteen crore, sixty seven lakh, seventy five thousand, one hundred and ninety three rupees, eighty five paise', Paisa.words(18677519385)
   end
 end
