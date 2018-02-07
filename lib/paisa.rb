@@ -6,19 +6,23 @@ module Paisa
       6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine', 0 => nil
   }
 
+  def self.combine_unit (base, k)
+    [base, UNITS[k]].compact.join(' ')
+  end
+
   TENS = {
       1 => {
           1 => 'eleven', 2 => 'twelve', 3 => 'thirteen', 4 => 'fourteen', 5 => 'fifteen',
           6 => 'sixteen', 7 => 'seventeen', 8 => 'eighteen', 9 => 'nineteen', 0 => 'ten'
       },
-      2 => Hash.new {|_, k| ['twenty', UNITS[k]].compact.join(' ')},
-      3 => Hash.new {|_, k| ['thirty', UNITS[k]].compact.join(' ')},
-      4 => Hash.new {|_, k| ['forty', UNITS[k]].compact.join(' ')},
-      5 => Hash.new {|_, k| ['fifty', UNITS[k]].compact.join(' ')},
-      6 => Hash.new {|_, k| ['sixty', UNITS[k]].compact.join(' ')},
-      7 => Hash.new {|_, k| ['seventy', UNITS[k]].compact.join(' ')},
-      8 => Hash.new {|_, k| ['eighty', UNITS[k]].compact.join(' ')},
-      9 => Hash.new {|_, k| ['ninety', UNITS[k]].compact.join(' ')},
+      2 => Hash.new {|_, k| combine_unit('twenty', k)},
+      3 => Hash.new {|_, k| combine_unit('thirty', k)},
+      4 => Hash.new {|_, k| combine_unit('forty', k)},
+      5 => Hash.new {|_, k| combine_unit('fifty', k)},
+      6 => Hash.new {|_, k| combine_unit('sixty', k)},
+      7 => Hash.new {|_, k| combine_unit('seventy', k)},
+      8 => Hash.new {|_, k| combine_unit('eighty', k)},
+      9 => Hash.new {|_, k| combine_unit('ninety', k)},
       0 => UNITS
   }
 
