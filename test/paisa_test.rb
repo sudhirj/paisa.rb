@@ -8,7 +8,7 @@ class PaisaTest < Minitest::Test
   def test_simple_formatting
     assert_equal '3.34', Paisa.format(334)
     assert_equal '9,393.34', Paisa.format(939_334)
-    assert_equal '92,83,83,393.34', Paisa.format(92_838_339_334)
+    assert_equal '792,83,83,393.34', Paisa.format(792_838_339_334)
     assert_equal '92,83,83,393.34', Paisa.format(92_838_339_334)
     assert_equal '2,83,83,393.34', Paisa.format(2_838_339_334)
     assert_equal '83,83,393.34', Paisa.format(838_339_334)
@@ -27,6 +27,7 @@ class PaisaTest < Minitest::Test
     assert_equal '₹3.34', Paisa.format_with_sym(334)
     assert_equal '₹9,393.34', Paisa.format_with_sym(939_334)
     assert_equal '₹92,83,83,393.34', Paisa.format_with_sym(92_838_339_334)
+    assert_equal '₹192,83,83,393.34', Paisa.format_with_sym(192_838_339_334)
     assert_equal '₹2,83,83,393.34', Paisa.format_with_sym(2_838_339_334)
     assert_equal '₹83,83,393.34', Paisa.format_with_sym(838_339_334)
     assert_equal '₹3,83,393.34', Paisa.format_with_sym(38_339_334)
@@ -54,5 +55,12 @@ class PaisaTest < Minitest::Test
     assert_equal 'sixty seven lakh, seventy five thousand, one hundred and ninety three rupees, eighty five paise', Paisa.words(677519385)
     assert_equal 'eight crore, sixty seven lakh, seventy five thousand, one hundred and ninety three rupees, eighty five paise', Paisa.words(8677519385)
     assert_equal 'eighteen crore, sixty seven lakh, seventy five thousand, one hundred and ninety three rupees, eighty five paise', Paisa.words(18677519385)
+    assert_equal 'seven hundred and eighteen crore, sixty seven lakh, seventy five thousand, one hundred and ninety three rupees, eighty five paise', Paisa.words(718677519385)
+    assert_equal 'three hundred rupees', Paisa.words(300_00)
+    assert_equal 'fifty thousand rupees', Paisa.words(5000000)
+    assert_equal 'five lakh rupees', Paisa.words(50000000)
+    assert_equal 'five crore rupees', Paisa.words(5000000000)
+    assert_equal 'five crore, forty two lakh rupees', Paisa.words(5420000000)
+    assert_equal 'five crore, forty two lakh rupees, seventy four paise', Paisa.words(5420000074)
   end
 end
