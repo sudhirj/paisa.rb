@@ -4,47 +4,38 @@ require 'paisa/version'
 
 module Paisa
   UNITS = {
-      1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five',
-      6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine', 0 => nil
+    1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five',
+    6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine', 0 => nil
   }.freeze
 
+  def self.tens_hash(tens_name)
+    Hash.new do |_, k|
+      [tens_name, UNITS[k]].compact.join(' ')
+    end
+  end
+  private_class_method :tens_hash
+
   TENS = {
-      1 => {
-          1 => 'eleven', 2 => 'twelve', 3 => 'thirteen', 4 => 'fourteen', 5 => 'fifteen',
-          6 => 'sixteen', 7 => 'seventeen', 8 => 'eighteen', 9 => 'nineteen', 0 => 'ten'
-      },
-      2 => Hash.new do |_, k|
-        ['twenty', UNITS[k]].compact.join(' ')
-      end,
-      3 => Hash.new do |_, k|
-        ['thirty', UNITS[k]].compact.join(' ')
-      end,
-      4 => Hash.new do |_, k|
-        ['forty', UNITS[k]].compact.join(' ')
-      end,
-      5 => Hash.new do |_, k|
-        ['fifty', UNITS[k]].compact.join(' ')
-      end,
-      6 => Hash.new do |_, k|
-        ['sixty', UNITS[k]].compact.join(' ')
-      end,
-      7 => Hash.new do |_, k|
-        ['seventy', UNITS[k]].compact.join(' ')
-      end,
-      8 => Hash.new do |_, k|
-        ['eighty', UNITS[k]].compact.join(' ')
-      end,
-      9 => Hash.new do |_, k|
-        ['ninety', UNITS[k]].compact.join(' ')
-      end,
-      0 => UNITS
+    1 => {
+      1 => 'eleven', 2 => 'twelve', 3 => 'thirteen', 4 => 'fourteen', 5 => 'fifteen',
+      6 => 'sixteen', 7 => 'seventeen', 8 => 'eighteen', 9 => 'nineteen', 0 => 'ten'
+    },
+    2 => tens_hash('twenty'),
+    3 => tens_hash('thirty'),
+    4 => tens_hash('forty'),
+    5 => tens_hash('fifty'),
+    6 => tens_hash('sixty'),
+    7 => tens_hash('seventy'),
+    8 => tens_hash('eighty'),
+    9 => tens_hash('ninety'),
+    0 => UNITS
   }.freeze
 
   def self.format(paise, precision: 2)
     rupee_parts, paise_part = parse(paise)
     [
-        rupee_parts.join(',').rjust(1, '0'),
-        paise_part.rjust(2, '0').slice(0, precision)
+      rupee_parts.join(',').rjust(1, '0'),
+      paise_part.rjust(2, '0').slice(0, precision)
     ].reject(&:empty?).join('.')
   end
 
@@ -88,17 +79,17 @@ module Paisa
   def self.to_words(section)
     digits = section.chars.map(&:to_i)
     case digits.size
-      when 1
-        UNITS[digits[0]]
-      when 2
-        TENS[digits[0]][digits[1]]
-      when 3
-        parts = []
-        parts << [UNITS[digits[0]], 'hundred'].join(' ')
-        parts << TENS[digits[1]][digits[2]] unless digits.slice(1, 2).sum.zero?
-        parts.join(' and ')
-      else
-        # do nothing
+    when 1
+      UNITS[digits[0]]
+    when 2
+      TENS[digits[0]][digits[1]]
+    when 3
+      parts = []
+      parts << [UNITS[digits[0]], 'hundred'].join(' ')
+      parts << TENS[digits[1]][digits[2]] unless digits.slice(1, 2).sum.zero?
+      parts.join(' and ')
+    else
+      # do nothing
     end
   end
 end
