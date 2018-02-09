@@ -3,16 +3,18 @@
 require 'paisa/version'
 
 module Paisa
-  UNITS = {
+  SYMBOL = '₹'
+  ONES = {
     1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five',
     6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine', 0 => nil
   }.freeze
 
   def self.tens_hash(tens_name)
     Hash.new do |_, k|
-      [tens_name, UNITS[k]].compact.join(' ')
+      [tens_name, ONES[k]].compact.join(' ')
     end
   end
+
   private_class_method :tens_hash
 
   TENS = {
@@ -28,7 +30,7 @@ module Paisa
     7 => tens_hash('seventy'),
     8 => tens_hash('eighty'),
     9 => tens_hash('ninety'),
-    0 => UNITS
+    0 => ONES
   }.freeze
 
   def self.format(paise, precision: 2)
@@ -40,11 +42,7 @@ module Paisa
   end
 
   def self.format_with_sym(paise, precision: 2)
-    [symbol, format(paise, precision: precision)].join
-  end
-
-  def self.symbol
-    '₹'
+    [SYMBOL, format(paise, precision: precision)].join
   end
 
   def self.words(paise)
@@ -73,23 +71,24 @@ module Paisa
     end
     [rupee_parts, paise_part]
   end
-
   private_class_method :parse
 
   def self.to_words(section)
     digits = section.chars.map(&:to_i)
     case digits.size
     when 1
-      UNITS[digits[0]]
+      ONES.dig(*digits)
     when 2
-      TENS[digits[0]][digits[1]]
+      TENS.dig(*digits)
     when 3
       parts = []
-      parts << [UNITS[digits[0]], 'hundred'].join(' ')
-      parts << TENS[digits[1]][digits[2]] unless digits.slice(1, 2).sum.zero?
+      parts << [ONES[digits[0]], 'hundred'].join(' ')
+      parts << TENS.dig(*digits.slice(1, 2)) unless digits.slice(1, 2).sum.zero?
       parts.join(' and ')
     else
       # do nothing
     end
   end
+
+  private_class_method :to_words
 end

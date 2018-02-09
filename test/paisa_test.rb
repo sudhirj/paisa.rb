@@ -23,7 +23,7 @@ class PaisaTest < Minitest::Test
   end
 
   def test_format_with_sym
-    assert_equal '₹', Paisa.symbol
+    assert_equal '₹', Paisa::SYMBOL
     assert_equal '₹3.34', Paisa.format_with_sym(334)
     assert_equal '₹9,393.34', Paisa.format_with_sym(939_334)
     assert_equal '₹92,83,83,393.34', Paisa.format_with_sym(92_838_339_334)
