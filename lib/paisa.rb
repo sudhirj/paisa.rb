@@ -83,7 +83,7 @@ module Paisa
     when 3
       parts = []
       parts << [ONES[digits[0]], 'hundred'].join(' ')
-      parts << TENS.dig(*digits.slice(1, 2)) unless digits.slice(1, 2).sum.zero?
+      parts << TENS.dig(*digits.slice(1, 2)) unless digits.slice(1, 2).inject(0){|sum,x| sum + x }.zero?
       parts.join(' and ')
     else
       # do nothing
