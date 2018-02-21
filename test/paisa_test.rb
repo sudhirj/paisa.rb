@@ -63,4 +63,11 @@ class PaisaTest < Minitest::Test
     assert_equal 'five crore, forty two lakh rupees', Paisa.words(5420000000)
     assert_equal 'five crore, forty two lakh rupees, seventy four paise', Paisa.words(5420000074)
   end
+
+  def test_words_hindi
+    assert_equal "दो पैसे", Paisa.words(2,"hindi")
+    assert_equal 'पांच करोड़, दो लाख रुपये, चार पैसे', Paisa.words(5020000004, "hindi")
+    assert_equal 'पांच करोड़, दो लाख रुपये, चौदह पैसे', Paisa.words(5020000014, "hindi")
+  end
+
 end

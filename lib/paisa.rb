@@ -37,8 +37,7 @@ module Paisa
         one:'एक', two: 'दो', three: 'तीन', four: 'चार', five: 'पांच', six: 'छह', seven: 'सात', zero: 'शून्य',
         eight: 'आठ', nine: 'नौ', ten: 'दस', eleven: 'ग्यारह', twelve: 'बारह', thirteen: 'तेरह', fourteen: 'चौदह', fifteen: 'पंद्रह',
         sixteen: 'सोलह', seventeen: 'सत्रह', eighteen: 'अठारह', 'nineteen': 'उन्नीस', hundred: 'दस', thousand: 'हजार',
-        lack: 'लाख', crore: 'करोड़', rupees: 'रुपये', paise: 'पैसे',
-
+        lakh: 'लाख', crore: 'करोड़', rupees: 'रुपये', paise: 'पैसे', and: 'और',
       twenty: {
         one: 'इकीस', two: 'बाईस', three: 'तेइस', four: 'चौबीस', five: 'पच्चीस', six: 'छब्बीस', seven: 'सताइस', eight: 'अट्ठाइस', nine: 'उनतीस', zero: 'बीस'
       },
@@ -54,13 +53,13 @@ module Paisa
       sixty: {
         one: 'इकसठ', two: 'बासठ', three: 'तिरसठ', four: 'चौंसठ', five: 'पैंसठ', six: 'छियासठ', seven: 'सड़सठ', eight: 'अड़सठ', nine: 'उनहतर', zero: 'साठ'
       },
-      'seventy': {
+      seventy: {
         one: 'इकहतर', two: 'बहतर', three: 'तिहतर', four: 'चौहतर', five: 'पचहतर', six: 'छिहतर', seven: 'सतहतर', eight: 'अठहतर', nine: 'उन्नासी', zero: 'सत्तर'
       },
-      'eighty': {
+      eighty: {
         one: 'इक्यासी', two: 'बयासी', three: 'तिरासी', four: 'चौरासी', five: 'पचासी', six: 'छियासी', seven: 'सतासी', eight: 'अट्ठासी', nine: 'नवासी', zero: 'अस्सी'
       },
-      'ninety': {
+      ninety: {
         one: 'इक्यानवे', two: 'बानवे', three: 'तिरानवे', four: 'चौरानवे', five: 'पचानवे', six: 'छियानवे', seven: 'सतानवे', eight: 'अट्ठानवे', nine: 'निन्यानवे', zero: 'नब्बे'
       }
     }.freeze
@@ -90,14 +89,16 @@ module Paisa
     text = []
     text << [rupee_text_parts.to_a.compact.reverse.join(', '), 'rupees'].join(' ') unless rupee_text_parts.empty?
     text << [to_words(paise_part), 'paise'].join(' ') unless paise_part.to_i.zero?
-    if lang=="hindi"
+    case lang
+    when "hindi"
       return hindi(text.join(', '))
+    else
+      return text.join(', ')
     end
-    text.join(', ')
   end
 
   def self.hindi(english)
-
+    english.split(', ').map{|x| x.split().map {|x| HINDI_MAPPING[x.to_sym]}.join(' ')}.join(', ')
   end
 
   def self.parse(paise)
