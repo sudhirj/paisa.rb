@@ -36,7 +36,7 @@ module Paisa
   HINDI_MAPPING = {
         one:'एक', two: 'दो', three: 'तीन', four: 'चार', five: 'पांच', six: 'छह', seven: 'सात', zero: 'शून्य',
         eight: 'आठ', nine: 'नौ', ten: 'दस', eleven: 'ग्यारह', twelve: 'बारह', thirteen: 'तेरह', fourteen: 'चौदह', fifteen: 'पंद्रह',
-        sixteen: 'सोलह', seventeen: 'सत्रह', eighteen: 'अठारह', 'nineteen': 'उन्नीस', hundred: 'दस', thousand: 'हजार',
+        sixteen: 'सोलह', seventeen: 'सत्रह', eighteen: 'अठारह', 'nineteen': 'उन्नीस', hundred: 'सौ', thousand: 'हजार',
         lakh: 'लाख', crore: 'करोड़', rupees: 'रुपये', paise: 'पैसे', and: 'और',
       twenty: {
         one: 'इकीस', two: 'बाईस', three: 'तेइस', four: 'चौबीस', five: 'पच्चीस', six: 'छब्बीस', seven: 'सताइस', eight: 'अट्ठाइस', nine: 'उनतीस', zero: 'बीस'
@@ -98,7 +98,23 @@ module Paisa
   end
 
   def self.hindi(english)
-    english.split(', ').map{|x| x.split().map {|x| HINDI_MAPPING[x.to_sym]}.join(' ')}.join(', ')
+    intermediate_hash = nil
+    english.split(', ').map{|x| x.split.map do |key|
+                                    if HINDI_MAPPING[key.to_sym].is_a? Hash
+                                      intermediate_hash = HINDI_MAPPING[key.to_sym]
+                                    else
+                                      if !intermediate_hash.nil?
+                                        hindi_number = intermediate_hash[key.to_sym]
+                                        if hindi_number.nil?
+                                          hindi_number = [intermediate_hash[:zero],HINDI_MAPPING[key.to_sym]].join(' ')
+                                        end
+                                      else
+                                        hindi_number = HINDI_MAPPING[key.to_sym]
+                                      end
+                                      intermediate_hash = nil
+                                    end
+                                    hindi_number
+                                  end.compact.join(' ')}.join(', ')
   end
 
   def self.parse(paise)

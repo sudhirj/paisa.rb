@@ -65,9 +65,29 @@ class PaisaTest < Minitest::Test
   end
 
   def test_words_hindi
-    assert_equal "दो पैसे", Paisa.words(2,"hindi")
     assert_equal 'पांच करोड़, दो लाख रुपये, चार पैसे', Paisa.words(5020000004, "hindi")
     assert_equal 'पांच करोड़, दो लाख रुपये, चौदह पैसे', Paisa.words(5020000014, "hindi")
+    assert_equal 'बयालीस पैसे', Paisa.words(42, "hindi")
+    assert_equal "दो पैसे", Paisa.words(2,"hindi")
+    assert_equal 'दस पैसे', Paisa.words(10, "hindi")
+    assert_equal 'पंद्रह पैसे', Paisa.words(15, "hindi")
+    assert_equal 'बानवे पैसे', Paisa.words(92, "hindi")
+    assert_equal 'दो रुपये, बानवे पैसे', Paisa.words(292, "hindi")
+    assert_equal 'अट्ठाइस रुपये, सैंतीस पैसे', Paisa.words(2837, "hindi")
+    assert_equal 'नौ सौ और तेइस रुपये, अड़तालीस पैसे', Paisa.words(92348, "hindi")
+    assert_equal 'आठ हजार, चार सौ और बासठ रुपये, सताइस पैसे', Paisa.words(846227, "hindi")
+    assert_equal 'सतावन हजार, दो सौ और दो रुपये, चौहतर पैसे', Paisa.words(5720274, "hindi")
+    assert_equal 'सात लाख, पचहतर हजार, एक सौ और तिरानवे रुपये, पचासी पैसे', Paisa.words(77519385, "hindi")
+    assert_equal 'सड़सठ लाख, पचहतर हजार, एक सौ और तिरानवे रुपये, पचासी पैसे', Paisa.words(677519385, "hindi")
+    assert_equal 'आठ करोड़, सड़सठ लाख, पचहतर हजार, एक सौ और तिरानवे रुपये, पचासी पैसे', Paisa.words(8677519385, "hindi")
+    assert_equal 'अठारह करोड़, सड़सठ लाख, पचहतर हजार, एक सौ और तिरानवे रुपये, पचासी पैसे', Paisa.words(18677519385, "hindi")
+    assert_equal 'सात सौ और अठारह करोड़, सड़सठ लाख, पचहतर हजार, एक सौ और तिरानवे रुपये, पचासी पैसे', Paisa.words(718677519385, "hindi")
+    assert_equal 'तीन सौ रुपये', Paisa.words(300_00, "hindi")
+    assert_equal 'पचास हजार रुपये', Paisa.words(5000000, "hindi")
+    assert_equal 'पांच लाख रुपये', Paisa.words(50000000, "hindi")
+    assert_equal 'पांच करोड़ रुपये', Paisa.words(5000000000, "hindi")
+    assert_equal 'पांच करोड़, बयालीस लाख रुपये', Paisa.words(5420000000, "hindi")
+    assert_equal 'पांच करोड़, बयालीस लाख रुपये, चौहतर पैसे', Paisa.words(5420000074, "hindi")
   end
 
 end
