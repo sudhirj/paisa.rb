@@ -34,35 +34,43 @@ module Paisa
   }.freeze
 
   HINDI_MAPPING = {
-        one:'एक', two: 'दो', three: 'तीन', four: 'चार', five: 'पांच', six: 'छह', seven: 'सात', zero: 'शून्य',
-        eight: 'आठ', nine: 'नौ', ten: 'दस', eleven: 'ग्यारह', twelve: 'बारह', thirteen: 'तेरह', fourteen: 'चौदह', fifteen: 'पंद्रह',
-        sixteen: 'सोलह', seventeen: 'सत्रह', eighteen: 'अठारह', 'nineteen': 'उन्नीस', hundred: 'सौ', thousand: 'हजार',
-        lakh: 'लाख', crore: 'करोड़', rupees: 'रुपये', paise: 'पैसे', and: 'और',
-      twenty: {
-        one: 'इकीस', two: 'बाईस', three: 'तेइस', four: 'चौबीस', five: 'पच्चीस', six: 'छब्बीस', seven: 'सताइस', eight: 'अट्ठाइस', nine: 'उनतीस', zero: 'बीस'
-      },
-      thirty: {
-        one: 'इकतीस', two: 'बतीस', three: 'तैंतीस', four: 'चौंतीस', five: 'पैंतीस', six: 'छतीस', seven: 'सैंतीस', eight: 'अड़तीस', nine: 'उनतालीस', zero: 'तीस'
-      },
-      forty: {
-        one: 'इकतालीस', two: 'बयालीस', three: 'तैतालीस', four: 'चवालीस', five: 'पैंतालीस', six: 'छयालिस', seven: 'सैंतालीस', eight: 'अड़तालीस', nine: 'उनचास', zero: 'चालीस'
-      },
-      fifty: {
-        one: 'इक्यावन', two: 'बावन', three: 'तिरपन', four: 'चौवन', five: 'पचपन', six: 'छप्पन', seven: 'सतावन', eight: 'अठावन', nine: 'उनसठ', zero: 'पचास'
-      },
-      sixty: {
-        one: 'इकसठ', two: 'बासठ', three: 'तिरसठ', four: 'चौंसठ', five: 'पैंसठ', six: 'छियासठ', seven: 'सड़सठ', eight: 'अड़सठ', nine: 'उनहतर', zero: 'साठ'
-      },
-      seventy: {
-        one: 'इकहतर', two: 'बहतर', three: 'तिहतर', four: 'चौहतर', five: 'पचहतर', six: 'छिहतर', seven: 'सतहतर', eight: 'अठहतर', nine: 'उन्नासी', zero: 'सत्तर'
-      },
-      eighty: {
-        one: 'इक्यासी', two: 'बयासी', three: 'तिरासी', four: 'चौरासी', five: 'पचासी', six: 'छियासी', seven: 'सतासी', eight: 'अट्ठासी', nine: 'नवासी', zero: 'अस्सी'
-      },
-      ninety: {
-        one: 'इक्यानवे', two: 'बानवे', three: 'तिरानवे', four: 'चौरानवे', five: 'पचानवे', six: 'छियानवे', seven: 'सतानवे', eight: 'अट्ठानवे', nine: 'निन्यानवे', zero: 'नब्बे'
-      }
-    }.freeze
+    one:'एक', two: 'दो', three: 'तीन', four: 'चार', five: 'पांच', six: 'छह', seven: 'सात', zero: 'शून्य',
+    eight: 'आठ', nine: 'नौ', ten: 'दस', eleven: 'ग्यारह', twelve: 'बारह', thirteen: 'तेरह', fourteen: 'चौदह', fifteen: 'पंद्रह',
+    sixteen: 'सोलह', seventeen: 'सत्रह', eighteen: 'अठारह', 'nineteen': 'उन्नीस', hundred: 'सौ', thousand: 'हजार',
+    lakh: 'लाख', crore: 'करोड़', rupees: 'रुपये', paise: 'पैसे', and: 'और',
+    twenty: {
+      one: 'इकीस', two: 'बाईस', three: 'तेइस', four: 'चौबीस', five: 'पच्चीस', six: 'छब्बीस', seven: 'सताइस',
+      eight: 'अट्ठाइस', nine: 'उनतीस', zero: 'बीस'
+    },
+    thirty: {
+      one: 'इकतीस', two: 'बतीस', three: 'तैंतीस', four: 'चौंतीस', five: 'पैंतीस', six: 'छतीस', seven: 'सैंतीस', eight: 'अड़तीस',
+      nine: 'उनतालीस', zero: 'तीस'
+    },
+    forty: {
+      one: 'इकतालीस', two: 'बयालीस', three: 'तैतालीस', four: 'चवालीस', five: 'पैंतालीस', six: 'छयालिस', seven: 'सैंतालीस',
+      eight: 'अड़तालीस', nine: 'उनचास', zero: 'चालीस'
+    },
+    fifty: {
+      one: 'इक्यावन', two: 'बावन', three: 'तिरपन', four: 'चौवन', five: 'पचपन', six: 'छप्पन', seven: 'सतावन', eight: 'अठावन',
+      nine: 'उनसठ', zero: 'पचास'
+    },
+    sixty: {
+      one: 'इकसठ', two: 'बासठ', three: 'तिरसठ', four: 'चौंसठ', five: 'पैंसठ', six: 'छियासठ', seven: 'सड़सठ',
+      eight: 'अड़सठ', nine: 'उनहतर', zero: 'साठ'
+    },
+    seventy: {
+      one: 'इकहतर', two: 'बहतर', three: 'तिहतर', four: 'चौहतर', five: 'पचहतर', six: 'छिहतर', seven: 'सतहतर',
+      eight: 'अठहतर', nine: 'उन्नासी', zero: 'सत्तर'
+    },
+    eighty: {
+      one: 'इक्यासी', two: 'बयासी', three: 'तिरासी', four: 'चौरासी', five: 'पचासी', six: 'छियासी', seven: 'सतासी',
+      eight: 'अट्ठासी', nine: 'नवासी', zero: 'अस्सी'
+    },
+    ninety: {
+      one: 'इक्यानवे', two: 'बानवे', three: 'तिरानवे', four: 'चौरानवे', five: 'पचानवे', six: 'छियानवे', seven: 'सतानवे',
+      eight: 'अट्ठानवे', nine: 'निन्यानवे', zero: 'नब्बे'
+    }
+  }.freeze
 
   def self.format(paise, precision: 2)
     rupee_parts, paise_part = parse(paise)
@@ -99,22 +107,23 @@ module Paisa
 
   def self.hindi(english)
     intermediate_hash = nil
-    english.split(', ').map{|x| x.split.map do |key|
-                                    if HINDI_MAPPING[key.to_sym].is_a? Hash
-                                      intermediate_hash = HINDI_MAPPING[key.to_sym]
-                                    else
-                                      if !intermediate_hash.nil?
-                                        hindi_number = intermediate_hash[key.to_sym]
-                                        if hindi_number.nil?
-                                          hindi_number = [intermediate_hash[:zero],HINDI_MAPPING[key.to_sym]].join(' ')
-                                        end
-                                      else
-                                        hindi_number = HINDI_MAPPING[key.to_sym]
-                                      end
-                                      intermediate_hash = nil
-                                    end
-                                    hindi_number
-                                  end.compact.join(' ')}.join(', ')
+    english.split(', ').map { | x | x.split.map do | k |
+      if HINDI_MAPPING[k.to_sym].is_a? Hash
+        intermediate_hash = HINDI_MAPPING[k.to_sym]
+      else
+        if !intermediate_hash.nil?
+          hindi_number = intermediate_hash[k.to_sym]
+          if hindi_number.nil?
+            hindi_number = [intermediate_hash[:zero], HINDI_MAPPING[k.to_sym]].join(' ')
+          end
+        else
+          hindi_number = HINDI_MAPPING[k.to_sym]
+        end
+        intermediate_hash = nil
+      end
+      hindi_number
+    end.compact.join(' ')
+  }.join(', ')
   end
 
   def self.parse(paise)
