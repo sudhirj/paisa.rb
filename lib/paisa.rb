@@ -106,24 +106,17 @@ module Paisa
   end
 
   def self.hindi(english)
-    intermediate_hash = nil
+    h = nil
     english.split(', ').map { | x | x.split.map do | k |
       if HINDI_MAPPING[k.to_sym].is_a? Hash
-        intermediate_hash = HINDI_MAPPING[k.to_sym]
+        h = HINDI_MAPPING[k.to_sym]
       else
-        if !intermediate_hash.nil?
-          hindi_number = intermediate_hash[k.to_sym]
-          if hindi_number.nil?
-            hindi_number = [intermediate_hash[:zero], HINDI_MAPPING[k.to_sym]].join(' ')
-          end
-        else
-          hindi_number = HINDI_MAPPING[k.to_sym]
-        end
-        intermediate_hash = nil
+        hindi_number = h.nil? ? HINDI_MAPPING[k.to_sym] : (h[k.to_sym].nil? ? [h[:zero], HINDI_MAPPING[k.to_sym]].join(' ') : h[k.to_sym])
+        h = nil
       end
       hindi_number
-    end.compact.join(' ')
-  }.join(', ')
+      end.compact.join(' ')
+    }.join(', ')
   end
 
   def self.parse(paise)
