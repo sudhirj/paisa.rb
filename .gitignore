@@ -10,3 +10,4 @@
 *.gem
 /test/reports
 .idea/
+.ruby-version
