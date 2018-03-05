@@ -34,9 +34,9 @@ module Paisa
   }.freeze
 
   HINDI_MAPPING = {
-    one:'एक', two: 'दो', three: 'तीन', four: 'चार', five: 'पांच', six: 'छह', seven: 'सात', zero: 'शून्य',
+    one: 'एक', two: 'दो', three: 'तीन', four: 'चार', five: 'पांच', six: 'छह', seven: 'सात', zero: 'शून्य',
     eight: 'आठ', nine: 'नौ', ten: 'दस', eleven: 'ग्यारह', twelve: 'बारह', thirteen: 'तेरह', fourteen: 'चौदह', fifteen: 'पंद्रह',
-    sixteen: 'सोलह', seventeen: 'सत्रह', eighteen: 'अठारह', 'nineteen': 'उन्नीस', hundred: 'सौ', thousand: 'हजार',
+    sixteen: 'सोलह', seventeen: 'सत्रह', eighteen: 'अठारह', nineteen: 'उन्नीस', hundred: 'सौ', thousand: 'हजार',
     lakh: 'लाख', crore: 'करोड़', rupees: 'रुपये', paise: 'पैसे', and: 'और',
     twenty: {
       one: 'इकीस', two: 'बाईस', three: 'तेइस', four: 'चौबीस', five: 'पच्चीस', six: 'छब्बीस', seven: 'सताइस',
@@ -84,7 +84,7 @@ module Paisa
     [SYMBOL, format(paise, precision: precision)].join
   end
 
-  def self.words(paise, lang="english")
+  def self.words(paise, lang: 'en')
     rupee_parts, paise_part = parse(paise)
     rupee_text_parts = rupee_parts.reverse.each_with_object([]) do |section, memo|
       label = ['', ' thousand', ' lakh', ' crore'][memo.size]
@@ -98,7 +98,7 @@ module Paisa
     text << [rupee_text_parts.to_a.compact.reverse.join(', '), 'rupees'].join(' ') unless rupee_text_parts.empty?
     text << [to_words(paise_part), 'paise'].join(' ') unless paise_part.to_i.zero?
     case lang
-    when "hindi"
+    when 'hin'
       return hindi(text.join(', '))
     else
       return text.join(', ')
@@ -107,16 +107,18 @@ module Paisa
 
   def self.hindi(english)
     h = nil
-    english.split(', ').map { | x | x.split.map do | k |
-      if HINDI_MAPPING[k.to_sym].is_a? Hash
-        h = HINDI_MAPPING[k.to_sym]
-      else
-        hindi_number = h.nil? ? HINDI_MAPPING[k.to_sym] : (h[k.to_sym].nil? ? [h[:zero], HINDI_MAPPING[k.to_sym]].join(' ') : h[k.to_sym])
-        h = nil
-      end
-      hindi_number
+    english.split(', ').map do |x|
+      x.split.map do |k|
+        if HINDI_MAPPING[k.to_sym].is_a? Hash
+          h = HINDI_MAPPING[k.to_sym]
+        else
+          hindi_number = h.nil? ? HINDI_MAPPING[k.to_sym] : (h[k.to_sym].nil? ?
+            [h[:zero], HINDI_MAPPING[k.to_sym]].join(' ') : h[k.to_sym])
+          h = nil
+        end
+        hindi_number
       end.compact.join(' ')
-    }.join(', ')
+    end.join(', ')
   end
 
   def self.parse(paise)
