@@ -3,7 +3,7 @@
 require 'paisa/version'
 
 module Paisa
-  SYMBOL = '₹'
+  SYMBOL = '₹'.freeze
   ONES = {
     1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five',
     6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine', 0 => nil
@@ -141,7 +141,7 @@ module Paisa
     when 3
       parts = []
       parts << [ONES[digits[0]], 'hundred'].join(' ')
-      parts << TENS.dig(*digits.slice(1, 2)) unless digits.slice(1, 2).inject(0){|sum,x| sum + x }.zero?
+      parts << TENS.dig(*digits.slice(1, 2)) unless digits.slice(1, 2).all?(&:zero?)
       parts.join(' and ')
     else
       # do nothing
