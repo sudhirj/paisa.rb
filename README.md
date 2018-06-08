@@ -1,8 +1,6 @@
-# Paisa [![CircleCI](https://circleci.com/gh/sudhirj/paisa.svg?style=svg)](https://circleci.com/gh/sudhirj/paisa)
+# Paisa
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/paisa`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Having trouble figuring out where to put the commas in Indian money? Are you being lazy and defaulting to hundreds of thousands and millions instead of lakhs and crores? Default no more! `Paisa` is here to save you.
 
 ## Installation
 
@@ -22,7 +20,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+
+// Format paise - if you have your money in Rupees, multiply by 100 to get the number of paise.
+Paisa.format(12345) // "123.45"
+Paisa.format(12345678) // "1,23,456.78"
+Paisa.format(12345678987) // "12,34,56,789.87"
+Paisa.format(10000) // "100"
+
+// Use formatWithSymbol to get Paisa to add the official Rupee symbol for you
+Paisa.format_with_sym(12345678) // "₹1,23,456.78"
+Paisa.format_with_sym(10000) // "₹100"
+
+// Pass an optional second parameter to force decimal precision to be set. 
+Paisa.format(12345678987, precision: 0) // "12,34,56,789" 
+Paisa.format(10000, precision: 2) // "100.00"
+Paisa.format_with_sym(10000, precision: 2) // "₹100.00"
+
+```
 
 ## Development
 
@@ -32,7 +47,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/paisa. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/paisa.rb. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
