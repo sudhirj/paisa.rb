@@ -23,20 +23,28 @@ Or install it yourself as:
 ```
 
 // Format paise - if you have your money in Rupees, multiply by 100 to get the number of paise.
-Paisa.format(12345) // "123.45"
-Paisa.format(12345678) // "1,23,456.78"
-Paisa.format(12345678987) // "12,34,56,789.87"
-Paisa.format(10000) // "100"
+assert_equal '3.34', Paisa.format(334)
+assert_equal '9,393.34', Paisa.format(939_334)
+assert_equal '792,83,83,393.34', Paisa.format(792_838_339_334)
 
 // Use formatWithSymbol to get Paisa to add the official Rupee symbol for you
-Paisa.format_with_sym(12345678) // "₹1,23,456.78"
-Paisa.format_with_sym(10000) // "₹100"
+assert_equal '₹', Paisa::SYMBOL
+assert_equal '₹3.34', Paisa.format_with_sym(334)
+assert_equal '₹9,393.34', Paisa.format_with_sym(939_334)
+assert_equal '₹92,83,83,393.34', Paisa.format_with_sym(92_838_339_334)
+assert_equal '₹192,83,83,393.34', Paisa.format_with_sym(192_838_339_334)
 
 // Pass an optional second parameter to force decimal precision to be set. 
 Paisa.format(12345678987, precision: 0) // "12,34,56,789" 
 Paisa.format(10000, precision: 2) // "100.00"
 Paisa.format_with_sym(10000, precision: 2) // "₹100.00"
 
+// Convert paise to words as well
+assert_equal 'two rupees, ninety two paise', Paisa.words(292)
+assert_equal 'twenty eight rupees, thirty seven paise', Paisa.words(2837)
+assert_equal 'nine hundred and twenty three rupees, forty eight paise', Paisa.words(92348)
+assert_equal 'three hundred rupees', Paisa.words(300_00)
+assert_equal 'seven hundred and eighteen crore, sixty seven lakh, seventy five thousand, one hundred and ninety three rupees, eighty five paise', Paisa.words(718677519385)
 ```
 
 ## Development
