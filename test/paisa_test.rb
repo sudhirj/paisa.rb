@@ -64,4 +64,32 @@ class PaisaTest < Minitest::Test
     assert_equal 'five crore, forty two lakh rupees, seventy four paise', Paisa.words(5420000074)
     assert_equal 'five hundred crore, forty two lakh rupees, seventy four paise', Paisa.words(500420000074)
   end
+
+  def test_words_hindi
+    assert_equal 'पांच करोड़, दो लाख रुपये, चार पैसे', Paisa.words(5020000004, lang: 'hin')
+    assert_equal 'पांच करोड़, दो लाख रुपये, चौदह पैसे', Paisa.words(5020000014, lang: 'hin')
+    assert_equal 'बयालीस पैसे', Paisa.words(42, lang: 'hin')
+    assert_equal "दो पैसे", Paisa.words(2,lang: 'hin')
+    assert_equal 'दस पैसे', Paisa.words(10, lang: 'hin')
+    assert_equal 'पंद्रह पैसे', Paisa.words(15, lang: 'hin')
+    assert_equal 'बानवे पैसे', Paisa.words(92, lang: 'hin')
+    assert_equal 'दो रुपये, बानवे पैसे', Paisa.words(292, lang: 'hin')
+    assert_equal 'अट्ठाइस रुपये, सैंतीस पैसे', Paisa.words(2837, lang: 'hin')
+    assert_equal 'नौ सौ और तेइस रुपये, अड़तालीस पैसे', Paisa.words(92348, lang: 'hin')
+    assert_equal 'आठ हजार, चार सौ और बासठ रुपये, सताइस पैसे', Paisa.words(846227, lang: 'hin')
+    assert_equal 'सतावन हजार, दो सौ और दो रुपये, चौहतर पैसे', Paisa.words(5720274, lang: 'hin')
+    assert_equal 'सात लाख, पचहतर हजार, एक सौ और तिरानवे रुपये, पचासी पैसे', Paisa.words(77519385, lang: 'hin')
+    assert_equal 'सड़सठ लाख, पचहतर हजार, एक सौ और तिरानवे रुपये, पचासी पैसे', Paisa.words(677519385, lang: 'hin')
+    assert_equal 'आठ करोड़, सड़सठ लाख, पचहतर हजार, एक सौ और तिरानवे रुपये, पचासी पैसे', Paisa.words(8677519385, lang: 'hin')
+    assert_equal 'अठारह करोड़, सड़सठ लाख, पचहतर हजार, एक सौ और तिरानवे रुपये, पचासी पैसे', Paisa.words(18677519385, lang: 'hin')
+    assert_equal 'सात सौ और अठारह करोड़, सड़सठ लाख, पचहतर हजार, एक सौ और तिरानवे रुपये, पचासी पैसे', Paisa.words(718677519385, lang: 'hin')
+    assert_equal 'तीन सौ रुपये', Paisa.words(300_00, lang: 'hin')
+    assert_equal 'पचास हजार रुपये', Paisa.words(5000000, lang: 'hin')
+    assert_equal 'पांच लाख रुपये', Paisa.words(50000000, lang: 'hin')
+    assert_equal 'पांच करोड़ रुपये', Paisa.words(5000000000, lang: 'hin')
+    assert_equal 'पांच करोड़, बयालीस लाख रुपये', Paisa.words(5420000000, lang: 'hin')
+    assert_equal 'पांच करोड़, बयालीस लाख रुपये, चौहतर पैसे', Paisa.words(5420000074, lang: 'hin')
+    assert_equal 'पांच सौ करोड़, बयालीस लाख रुपये, चौहतर पैसे', Paisa.words(500420000074, lang: 'hin')
+  end
+
 end
